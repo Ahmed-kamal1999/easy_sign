@@ -40,6 +40,9 @@ Features:
             "easy_sign/static/src/js/sign_public.js",
         ],
     },
+    "images": [
+        "static/description/main_screenshot.png",
+    ],
     "installable": True,
     "application": True,
     "auto_install": False,
