@@ -24,7 +24,9 @@ Features:
     "category": "Tools/Sign",
     "author": "Ahmed Kamal",
     "website": "https://www.linkedin.com/in/ahmed-kamal-97569316b/",
-    "license": "LGPL-3",
+    "license": "OPL-1",
+    "price": 30.00,
+    "currency": "USD",
     "depends": ["mail", "web"],
     "data": [
         "security/ir.model.access.csv",
