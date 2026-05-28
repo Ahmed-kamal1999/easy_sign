@@ -25,7 +25,7 @@ Features:
     "author": "Ahmed Kamal",
     "website": "https://www.linkedin.com/in/ahmed-kamal-97569316b/",
     "license": "OPL-1",
-    "price": 30.00,
+    "price": 15.00,
     "currency": "USD",
     "depends": ["mail", "web"],
     "data": [
