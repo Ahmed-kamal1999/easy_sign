@@ -270,7 +270,6 @@ class SignRequest(models.Model):
         )
 
     def _check_all_signed(self):
-        """Called after each signer signs; finalise if everyone is done."""
         self.ensure_one()
         # Re-read the signing progress
         active_items = self.request_item_ids.filtered(
@@ -290,7 +289,6 @@ class SignRequest(models.Model):
             self._notify_all_signed()
 
     def _build_signature_overlay(self, page_w, page_h, signed_items):
-        """Build a PDF overlay page containing all signature images using reportlab."""
         try:
             from reportlab.pdfgen import canvas as rl_canvas
             from reportlab.lib.utils import ImageReader
@@ -311,7 +309,6 @@ class SignRequest(models.Model):
                     sig_bytes = base64.b64decode(item.signature)
                     img = Image.open(io.BytesIO(sig_bytes))
 
-                    # White background for transparent PNG
                     if img.mode in ('RGBA', 'LA'):
                         bg = Image.new('RGBA', img.size, (255, 255, 255, 255))
                         bg.paste(img, mask=img.split()[-1])
@@ -348,7 +345,6 @@ class SignRequest(models.Model):
             return None
 
     def _create_signed_document(self):
-        """Embed all signer signatures into the last page of the PDF."""
         self.ensure_one()
         _logger.info("_create_signed_document called for %s", self.name)
 
@@ -391,7 +387,6 @@ class SignRequest(models.Model):
                 if overlay_bytes:
                     overlay_reader = PdfReader(io.BytesIO(overlay_bytes))
                     overlay_page = overlay_reader.pages[0]
-                    # merge_page works in both pypdf and PyPDF2
                     if hasattr(last_page, 'merge_page'):
                         last_page.merge_page(overlay_page)
                     elif hasattr(last_page, 'mergePage'):
@@ -472,7 +467,7 @@ class SignRequest(models.Model):
         mail_values = {
             "subject": f"[SIGNED] All parties signed: {self.document_name or self.name}",
             "email_from": self.env.company.email
-            or "noreply@example.com",
+            or "test@example.com",
             "email_to": requester.email,
             "body_html": body_html,
             "auto_delete": True,
@@ -480,7 +475,6 @@ class SignRequest(models.Model):
         self.env["mail.mail"].sudo().create(mail_values).send()
 
     def _notify_declined(self, item):
-        """Notify the requester that a signer declined."""
         self.ensure_one()
         requester = self.user_id
         if not requester or not requester.email:
@@ -500,7 +494,7 @@ class SignRequest(models.Model):
         mail_values = {
             "subject": f"[DECLINED] {item.signer_name} declined to sign: {self.document_name or self.name}",
             "email_from": self.env.company.email
-            or "noreply@example.com",
+            or "admin@example.com",
             "email_to": requester.email,
             "body_html": body_html,
             "auto_delete": True,
@@ -513,7 +507,6 @@ class SignRequest(models.Model):
         )
 
     def action_download_signed(self):
-        """Return an action to download the signed document."""
         self.ensure_one()
         if not self.signed_document:
             raise UserError("The signed document is not yet available.")

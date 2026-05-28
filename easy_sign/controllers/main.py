@@ -11,7 +11,6 @@ _logger = logging.getLogger(__name__)
 class EasySignController(http.Controller):
 
     def _get_item_by_token(self, token):
-        """Retrieve a sign.request.item by its access_token (sudo)."""
         item = (
             request.env["sign.request.item"]
             .sudo()
@@ -20,15 +19,12 @@ class EasySignController(http.Controller):
         return item
 
     def _is_expired(self, sign_request):
-        """Return True if the request has passed its expiry date."""
         if not sign_request.expiry_date:
             return False
         today = fields.Date.today()
         return sign_request.expiry_date < today
 
-    # ------------------------------------------------------------------
-    # Public signing page
-    # ------------------------------------------------------------------
+
 
     @http.route(
         "/sign/view/<string:token>",
@@ -48,14 +44,12 @@ class EasySignController(http.Controller):
 
         sign_request = item.request_id
 
-        # Cancelled
         if sign_request.state == "cancelled" or item.state == "cancelled":
             return request.render("easy_sign.sign_invalid", {
                 "error_title": "Request Cancelled",
                 "error_message": "This signature request has been cancelled.",
             })
 
-        # Expired
         if self._is_expired(sign_request):
             sign_request.sudo().write({"state": "expired"})
             return request.render("easy_sign.sign_invalid", {
@@ -63,7 +57,6 @@ class EasySignController(http.Controller):
                 "error_message": f"This signing link expired on {sign_request.expiry_date}.",
             })
 
-        # Already signed
         if item.state == "signed":
             return request.render("easy_sign.sign_success", {
                 "item": item,
@@ -71,7 +64,6 @@ class EasySignController(http.Controller):
                 "already_done": True,
             })
 
-        # Already declined
         if item.state == "declined":
             return request.render("easy_sign.sign_declined", {
                 "item": item,
@@ -79,7 +71,6 @@ class EasySignController(http.Controller):
                 "already_done": True,
             })
 
-        # Log 'viewed' if first time
         if item.state == "sent":
             item.write({"state": "viewed"})
             request.env["sign.log"].sudo().create({
@@ -96,9 +87,6 @@ class EasySignController(http.Controller):
             "document_url": f"/sign/document/{token}",
         })
 
-    # ------------------------------------------------------------------
-    # Serve the PDF document
-    # ------------------------------------------------------------------
 
     @http.route(
         "/sign/document/<string:token>",
@@ -113,7 +101,6 @@ class EasySignController(http.Controller):
 
         sign_request = item.request_id
 
-        # Basic access checks
         if sign_request.state == "cancelled" or item.state == "cancelled":
             return request.not_found()
         if self._is_expired(sign_request):
@@ -135,9 +122,6 @@ class EasySignController(http.Controller):
             ],
         )
 
-    # ------------------------------------------------------------------
-    # Submit signature
-    # ------------------------------------------------------------------
 
     @http.route(
         "/sign/submit/<string:token>",
@@ -179,7 +163,6 @@ class EasySignController(http.Controller):
                 status=400,
             )
 
-        # Get the signature from POST data
         post_data = request.httprequest.form
         signature_data_url = post_data.get("signature", "")
 
@@ -191,13 +174,11 @@ class EasySignController(http.Controller):
             )
 
         try:
-            # Strip the data URL prefix: data:image/png;base64,<data>
             if "," in signature_data_url:
                 signature_b64 = signature_data_url.split(",", 1)[1]
             else:
                 signature_b64 = signature_data_url
 
-            # Validate it is valid base64
             base64.b64decode(signature_b64)
 
             ip_address = request.httprequest.remote_addr
@@ -215,9 +196,6 @@ class EasySignController(http.Controller):
                 status=500,
             )
 
-    # ------------------------------------------------------------------
-    # Decline signing
-    # ------------------------------------------------------------------
 
     @http.route(
         "/sign/decline/<string:token>",

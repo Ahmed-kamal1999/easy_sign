@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- ================================================================
-         sign.request — List View
-         ================================================================ -->
+
     <record id="view_sign_request_list" model="ir.ui.view">
         <field name="name">sign.request.list</field>
         <field name="model">sign.request</field>
@@ -28,9 +26,7 @@
         </field>
     </record>
 
-    <!-- ================================================================
-         sign.request — Form View
-         ================================================================ -->
+
     <record id="view_sign_request_form" model="ir.ui.view">
         <field name="name">sign.request.form</field>
         <field name="model">sign.request</field>
@@ -80,7 +76,6 @@
                         </h1>
                     </div>
 
-                    <!-- Progress Banner -->
                     <div class="alert alert-success mb-3"
                          invisible="state != 'signed'">
                         <strong>All parties have signed this document.</strong>
@@ -120,7 +115,6 @@
                                readonly="state != 'draft'"/>
                     </group>
 
-                    <!-- Signed document section -->
                     <group string="Signed Document" invisible="state != 'signed'">
                         <field name="signed_document"
                                widget="binary"
@@ -131,7 +125,6 @@
                     </group>
 
                     <notebook>
-                        <!-- Signers Tab -->
                         <page string="Signers" name="signers">
                             <field name="request_item_ids"
                                    readonly="state != 'draft'">
@@ -185,9 +178,7 @@
         </field>
     </record>
 
-    <!-- ================================================================
-         sign.request — Search View
-         ================================================================ -->
+
     <record id="view_sign_request_search" model="ir.ui.view">
         <field name="name">sign.request.search</field>
         <field name="model">sign.request</field>
@@ -228,9 +219,7 @@
         </field>
     </record>
 
-    <!-- ================================================================
-         sign.request — Action
-         ================================================================ -->
+
     <record id="action_sign_request" model="ir.actions.act_window">
         <field name="name">Signature Requests</field>
         <field name="res_model">sign.request</field>

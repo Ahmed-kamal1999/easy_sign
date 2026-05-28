@@ -1,8 +1,4 @@
-/* ============================================================
-   Easy Sign — Public Signing Page Styles
-   ============================================================ */
 
-/* ---------- Base ---------- */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -635,7 +631,6 @@ html[dir="rtl"] .es-pdf-panel {
     }
 }
 
-/* ---------- Utility ---------- */
 .d-none {
     display: none !important;
 }

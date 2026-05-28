@@ -85,7 +85,6 @@ class SignRequestItem(models.Model):
         return super().create(vals_list)
 
     def action_sign(self, signature_b64, ip_address=None):
-        """Mark this item as signed with the provided signature."""
         self.ensure_one()
         if self.state in ("signed", "declined", "cancelled"):
             raise UserError(
@@ -99,7 +98,6 @@ class SignRequestItem(models.Model):
                 "ip_address": ip_address,
             }
         )
-        # Write audit log
         self.env["sign.log"].sudo().create(
             {
                 "request_id": self.request_id.id,
@@ -108,12 +106,10 @@ class SignRequestItem(models.Model):
                 "ip_address": ip_address,
             }
         )
-        # Check if all signers are done
         self.request_id.sudo()._check_all_signed()
         return True
 
     def action_decline(self, reason=None, ip_address=None):
-        """Mark this item as declined."""
         self.ensure_one()
         if self.state in ("signed", "declined", "cancelled"):
             raise UserError(
@@ -126,7 +122,6 @@ class SignRequestItem(models.Model):
                 "ip_address": ip_address,
             }
         )
-        # Write audit log
         self.env["sign.log"].sudo().create(
             {
                 "request_id": self.request_id.id,
@@ -136,6 +131,5 @@ class SignRequestItem(models.Model):
                 "notes": reason,
             }
         )
-        # Notify requester about decline
         self.request_id.sudo()._notify_declined(self)
         return True

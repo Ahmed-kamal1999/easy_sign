@@ -6,9 +6,7 @@
 (function () {
     'use strict';
 
-    // ----------------------------------------------------------------
-    // Wait for DOM ready
-    // ----------------------------------------------------------------
+
     document.addEventListener('DOMContentLoaded', function () {
 
         /* ---- Element references ---- */
@@ -31,14 +29,13 @@
         var msgDeclined     = document.getElementById('msgDeclined');
 
         if (!canvas) {
-            // Not on the signing page — nothing to do
             return;
         }
 
         /* ---- Canvas context setup ---- */
         var ctx = canvas.getContext('2d');
         var isDrawing   = false;
-        var hasSigned   = false;  // true once user draws at least one stroke
+        var hasSigned   = false;
         var lastX       = 0;
         var lastY       = 0;
 
@@ -53,9 +50,7 @@
 
         initCanvas();
 
-        // ----------------------------------------------------------------
-        // Coordinate helpers
-        // ----------------------------------------------------------------
+
         function getCanvasCoords(event) {
             var rect = canvas.getBoundingClientRect();
             var scaleX = canvas.width  / rect.width;
@@ -106,9 +101,7 @@
             }
         }
 
-        // ----------------------------------------------------------------
-        // Mouse events
-        // ----------------------------------------------------------------
+
         canvas.addEventListener('mousedown', function (e) {
             e.preventDefault();
             var coords = getCanvasCoords(e);
@@ -131,9 +124,7 @@
             if (isDrawing) { endDraw(); }
         });
 
-        // ----------------------------------------------------------------
-        // Touch events (mobile support)
-        // ----------------------------------------------------------------
+
         canvas.addEventListener('touchstart', function (e) {
             e.preventDefault();
             var coords = getCanvasCoords(e);
@@ -155,9 +146,7 @@
             endDraw();
         });
 
-        // ----------------------------------------------------------------
-        // Clear button
-        // ----------------------------------------------------------------
+
         if (btnClear) {
             btnClear.addEventListener('click', function () {
                 initCanvas();
@@ -168,9 +157,7 @@
             });
         }
 
-        // ----------------------------------------------------------------
-        // Helper: show/hide messages
-        // ----------------------------------------------------------------
+
         function hideMessages() {
             if (msgSuccess) { msgSuccess.classList.add('d-none'); }
             if (msgError)   { msgError.classList.add('d-none'); }
@@ -192,9 +179,7 @@
             if (btnSignSpinner) { btnSignSpinner.classList.toggle('d-none', !loading); }
         }
 
-        // ----------------------------------------------------------------
-        // Sign button
-        // ----------------------------------------------------------------
+
         if (btnSign) {
             btnSign.addEventListener('click', function () {
                 if (!hasSigned) {
@@ -260,9 +245,7 @@
             });
         }
 
-        // ----------------------------------------------------------------
-        // Decline flow
-        // ----------------------------------------------------------------
+
         if (btnShowDecline) {
             btnShowDecline.addEventListener('click', function () {
                 if (declineForm) { declineForm.classList.remove('d-none'); }
@@ -334,6 +317,6 @@
             });
         }
 
-    }); // end DOMContentLoaded
+    });
 
 })();

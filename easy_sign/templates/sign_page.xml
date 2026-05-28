@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!-- ═══════════════════════════════════════════════════
-     MAIN SIGNING PAGE
-═══════════════════════════════════════════════════ -->
+
 <template id="sign_page" name="Easy Sign - Sign Document">
 <html lang="en" id="esRoot">
 <head>
@@ -126,11 +124,9 @@
                 </div>
             </div>
 
-            <!-- Right: Signature Panel -->
             <div class="col-lg-5 es-sign-panel">
                 <div class="es-sign-panel-inner">
 
-                    <!-- Signer Info -->
                     <div class="es-signer-info">
                         <div class="es-avatar">
                             <t t-esc="(item.signer_name or 'S')[0].upper()"/>
@@ -141,7 +137,6 @@
                         </div>
                     </div>
 
-                    <!-- Request Info -->
                     <div class="es-request-info">
                         <p class="es-info-label es-i18n" data-en="Requested by" data-ar="طلب من">Requested by</p>
                         <p class="es-info-value" t-esc="sign_request.user_id.name"/>
@@ -151,7 +146,6 @@
                         </t>
                     </div>
 
-                    <!-- Instructions -->
                     <div class="es-instructions">
                         <h5 class="es-section-title es-i18n" data-en="Draw Your Signature" data-ar="ارسم توقيعك">Draw Your Signature</h5>
                         <p class="es-instructions-text es-i18n"
@@ -161,13 +155,11 @@
                         </p>
                     </div>
 
-                    <!-- Canvas -->
                     <div class="es-canvas-wrap">
                         <canvas id="signatureCanvas" width="480" height="180" class="es-canvas"/>
                         <div class="es-canvas-hint es-i18n" data-en="Sign here ✍" data-ar="وقّع هنا ✍">Sign here ✍</div>
                     </div>
 
-                    <!-- Canvas Controls -->
                     <div class="es-canvas-controls">
                         <button id="btnClear" type="button" class="es-btn-clear">
                             &#8634; <span class="es-i18n" data-en="Clear" data-ar="مسح">Clear</span>
@@ -175,7 +167,6 @@
                         <span id="canvasStatus" class="es-canvas-status"/>
                     </div>
 
-                    <!-- Sign Button -->
                     <button id="btnSign" type="button" class="es-btn-sign" t-att-data-token="token">
                         <span id="btnSignText">
                             &#10003; <span class="es-i18n" data-en="Sign Document" data-ar="توقيع الوثيقة">Sign Document</span>
@@ -186,14 +177,12 @@
                         </span>
                     </button>
 
-                    <!-- Decline Link -->
                     <div class="es-decline-section">
                         <button id="btnShowDecline" type="button" class="es-btn-decline-link">
                             <span class="es-i18n" data-en="I decline to sign this document" data-ar="أرفض التوقيع على هذه الوثيقة">I decline to sign this document</span>
                         </button>
                     </div>
 
-                    <!-- Decline Form -->
                     <div id="declineForm" class="es-decline-form d-none">
                         <h6 class="es-section-title es-i18n" data-en="Reason for Declining" data-ar="سبب الرفض">Reason for Declining</h6>
                         <textarea id="declineReason" rows="3" class="form-control es-textarea">
