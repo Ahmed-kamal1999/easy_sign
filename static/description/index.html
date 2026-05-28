@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        /* ── Hero ── */
+        .es-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: #fff;
+        }
+        .es-hero-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .es-hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+        .es-hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.75);
+            margin: 0 auto;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .es-badge-row {
+            margin-top: 24px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .es-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            color: #fff;
+        }
+        .es-badge-green { background: rgba(16,185,129,0.25); border-color: #10b981; }
+        .es-badge-blue  { background: rgba(59,130,246,0.25); border-color: #3b82f6; }
+        .es-badge-gold  { background: rgba(251,191,36,0.25); border-color: #fbbf24; }
+
+        /* ── Section ── */
+        .es-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+        .es-section-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin: 0 0 8px 0;
+            text-align: center;
+        }
+        .es-section-sub {
+            font-size: 15px;
+            color: #64748b;
+            text-align: center;
+            margin: 0 0 40px 0;
+        }
+
+        /* ── Features grid ── */
+        .es-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .es-feature-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px 22px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .es-feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .es-feature-icon {
+            font-size: 36px;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .es-feature-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 8px 0;
+        }
+        .es-feature-desc {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ── How it works ── */
+        .es-steps {
+            display: flex;
+            gap: 0;
+            margin-top: 32px;
+            position: relative;
+        }
+        .es-steps::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            z-index: 0;
+        }
+        .es-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 12px;
+        }
+        .es-step-num {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+        }
+        .es-step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 6px 0;
+        }
+        .es-step-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ── No external API banner ── */
+        .es-no-api {
+            background: linear-gradient(135deg, #064e3b, #065f46);
+            border-radius: 16px;
+            padding: 36px 40px;
+            text-align: center;
+            color: #fff;
+            margin: 0 30px 50px;
+            max-width: 840px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .es-no-api h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+        }
+        .es-no-api p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* ── Bilingual highlight ── */
+        .es-bilingual {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 16px;
+            padding: 36px 40px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 50px;
+            max-width: 840px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .es-bilingual h3 { font-size: 22px; font-weight: 800; margin: 0 0 12px 0; }
+        .es-bilingual p  { font-size: 15px; color: rgba(255,255,255,0.75); margin: 0; line-height: 1.6; }
+
+        /* ── Requirements ── */
+        .es-requirements {
+            background: #f0f4ff;
+            border: 1px solid #c7d7fe;
+            border-radius: 14px;
+            padding: 28px 32px;
+            max-width: 840px;
+            margin: 0 auto 50px;
+        }
+        .es-requirements h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e40af;
+            margin: 0 0 16px 0;
+        }
+        .es-req-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .es-req-list li {
+            font-size: 14px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .es-req-list li::before {
+            content: '✅';
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ── Divider ── */
+        .es-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0 30px;
+        }
+
+        /* ── Screenshot placeholder ── */
+        .es-screenshots {
+            background: #f8fafc;
+            padding: 50px 30px;
+            text-align: center;
+        }
+        .es-screenshot-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 840px;
+            margin: 24px auto 0;
+        }
+        .es-screenshot-box {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ── Footer ── */
+        .es-footer-strip {
+            background: #1a1a2e;
+            padding: 30px 40px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+        }
+        .es-footer-strip strong { color: #fff; }
+
+        @media (max-width: 768px) {
+            .es-features { grid-template-columns: 1fr; }
+            .es-steps { flex-direction: column; gap: 20px; }
+            .es-steps::before { display: none; }
+            .es-req-list { grid-template-columns: 1fr; }
+            .es-screenshot-wrap { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<div class="es-hero">
+    <span class="es-hero-icon">✍️</span>
+    <h1>Easy Sign — Electronic Signature</h1>
+    <p>
+        A complete self-hosted e-signature solution built entirely inside Odoo 18.
+        No external APIs. No third-party subscriptions. 100% your data.
+    </p>
+    <div class="es-badge-row">
+        <span class="es-badge es-badge-green">✅ No External API</span>
+        <span class="es-badge es-badge-blue">🔒 Self-Hosted</span>
+        <span class="es-badge es-badge-gold">🌐 Arabic &amp; English</span>
+        <span class="es-badge es-badge-blue">📱 Mobile Friendly</span>
+        <span class="es-badge es-badge-green">⚡ Odoo 18</span>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     NO EXTERNAL API BANNER
+══════════════════════════════════════════════════ -->
+<div style="padding: 50px 30px 0;">
+    <div class="es-no-api">
+        <h3>🔒 100% Self-Hosted — No External Services Needed</h3>
+        <p>
+            Unlike other signature modules that depend on iLoveSign, DocuSign, or HelloSign,
+            <strong>Easy Sign</strong> runs entirely inside your Odoo instance.
+            Your documents never leave your server. No API keys, no monthly fees, no data sharing.
+        </p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════════ -->
+<div class="es-section">
+    <h2 class="es-section-title">Everything You Need to Sign Documents</h2>
+    <p class="es-section-sub">A complete workflow from document upload to signed PDF — all inside Odoo</p>
+
+    <div class="es-features">
+        <div class="es-feature-card">
+            <span class="es-feature-icon">📄</span>
+            <p class="es-feature-title">PDF Document Upload</p>
+            <p class="es-feature-desc">Upload any PDF document directly in Odoo and add one or multiple signers with name and email.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">📧</span>
+            <p class="es-feature-title">Automatic Email Invitation</p>
+            <p class="es-feature-desc">Each signer receives a professional email with a unique signing link — no Odoo account needed.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">✍️</span>
+            <p class="es-feature-title">Canvas Signature Drawing</p>
+            <p class="es-feature-desc">Signers draw their signature directly in the browser using mouse or finger on mobile devices.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">📋</span>
+            <p class="es-feature-title">Signed PDF Generation</p>
+            <p class="es-feature-desc">After all parties sign, the system automatically embeds signatures into the PDF and saves it in Odoo.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">🔍</span>
+            <p class="es-feature-title">Full Audit Trail</p>
+            <p class="es-feature-desc">Every action (viewed, signed, declined) is logged with IP address, timestamp, and signer details.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">⏰</span>
+            <p class="es-feature-title">Expiry Dates &amp; Decline</p>
+            <p class="es-feature-desc">Set expiry dates for signing links. Signers can decline with a reason, notifying the requester automatically.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">🌐</span>
+            <p class="es-feature-title">Arabic &amp; English Interface</p>
+            <p class="es-feature-desc">The signing page supports instant switching between Arabic (RTL) and English with a single click.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">📱</span>
+            <p class="es-feature-title">Mobile Responsive</p>
+            <p class="es-feature-desc">The signing page is fully responsive. Signers can sign on smartphones and tablets with touch support.</p>
+        </div>
+        <div class="es-feature-card">
+            <span class="es-feature-icon">🔔</span>
+            <p class="es-feature-title">Smart Notifications</p>
+            <p class="es-feature-desc">Requester is notified when all signers complete, or when anyone declines. Chatter integration included.</p>
+        </div>
+    </div>
+</div>
+
+<div class="es-divider"/>
+
+<!-- ══════════════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════════════ -->
+<div class="es-section">
+    <h2 class="es-section-title">How It Works</h2>
+    <p class="es-section-sub">Simple 4-step signing workflow</p>
+
+    <div class="es-steps">
+        <div class="es-step">
+            <div class="es-step-num">1</div>
+            <p class="es-step-title">Upload Document</p>
+            <p class="es-step-desc">Upload a PDF, add signers' names and emails, set optional expiry date and invitation message.</p>
+        </div>
+        <div class="es-step">
+            <div class="es-step-num">2</div>
+            <p class="es-step-title">Send Invitations</p>
+            <p class="es-step-desc">Click "Send for Signature" — Odoo emails each signer a secure, unique signing link instantly.</p>
+        </div>
+        <div class="es-step">
+            <div class="es-step-num">3</div>
+            <p class="es-step-title">Signer Reviews &amp; Signs</p>
+            <p class="es-step-desc">Signer opens the link, reviews the PDF, draws their signature on canvas, and clicks Sign.</p>
+        </div>
+        <div class="es-step">
+            <div class="es-step-num">4</div>
+            <p class="es-step-title">Signed PDF Ready</p>
+            <p class="es-step-desc">Once all parties sign, the PDF with embedded signatures is saved in Odoo and requester is notified.</p>
+        </div>
+    </div>
+</div>
+
+<div class="es-divider"/>
+
+<!-- ══════════════════════════════════════════════════
+     BILINGUAL SECTION
+══════════════════════════════════════════════════ -->
+<div style="padding: 50px 30px 0;">
+    <div class="es-bilingual">
+        <h3>🌐 Arabic &amp; English — Instant Language Switch</h3>
+        <p>
+            The public signing page includes a language toggle button.<br/>
+            Switching to Arabic automatically applies RTL layout, Cairo font,<br/>
+            and flips the two-column layout — PDF on the right, signature on the left.
+        </p>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <span style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 8px 20px; font-size: 14px; color: #fff;">🇺🇸 English (LTR)</span>
+            <span style="font-size: 20px; color: rgba(255,255,255,0.4); display: flex; align-items: center;">⇄</span>
+            <span style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 8px 20px; font-size: 14px; color: #fff;">🇸🇦 العربية (RTL)</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     REQUIREMENTS
+══════════════════════════════════════════════════ -->
+<div style="padding: 50px 30px 0;">
+    <div class="es-requirements">
+        <h4>📦 Technical Requirements</h4>
+        <ul class="es-req-list">
+            <li>Odoo 18 Community or Enterprise</li>
+            <li>Python packages: <code>reportlab</code>, <code>Pillow</code>, <code>pypdf / PyPDF2</code></li>
+            <li>Depends on: <code>mail</code>, <code>web</code></li>
+            <li>No external API keys required</li>
+            <li>Outgoing email configured (SMTP)</li>
+            <li>Works on all major browsers (Chrome, Firefox, Safari, Edge)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SCREENSHOTS SECTION
+══════════════════════════════════════════════════ -->
+<div class="es-screenshots">
+    <h2 class="es-section-title">Screenshots</h2>
+    <div class="es-screenshot-wrap">
+        <img src="screenshots/1_backend.png" alt="Backend - Signature Request Form"
+             style="border-radius:10px;border:1px solid #e2e8f0;width:100%;"/>
+        <img src="screenshots/2_signing_page.png" alt="Public Signing Page"
+             style="border-radius:10px;border:1px solid #e2e8f0;width:100%;"/>
+        <img src="screenshots/3_arabic.png" alt="Arabic RTL Layout"
+             style="border-radius:10px;border:1px solid #e2e8f0;width:100%;"/>
+        <img src="screenshots/4_signed_pdf.png" alt="Signed PDF Result"
+             style="border-radius:10px;border:1px solid #e2e8f0;width:100%;"/>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<div class="es-footer-strip">
+    <strong>Easy Sign</strong> — Self-hosted Electronic Signatures for Odoo 18 &nbsp;|&nbsp;
+    License: LGPL-3 &nbsp;|&nbsp; Author: Ahmed Kamal &nbsp;|&nbsp;
+    <a href="https://www.linkedin.com/in/ahmed-kamal-97569316b/" style="color:#60a5fa;">LinkedIn</a>
+</div>
+
+</body>
+</html>
